@@ -1,4 +1,4 @@
-var teleinfo = require("./teleinfo");
+var teleinfo = require("teleinfo");
 var util = require('util');
 
 var trameEvents = teleinfo.teleinfo("/dev/ttyAMA0");
