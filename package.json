@@ -1,5 +1,5 @@
 {
-  "name": "teleinfo-node",
+  "name": "teleinfo",
   "version": "0.1.0",
   "description": "Decode teleinfo data (from french electricity meter) from serial port",
   "main": "teleinfo.js",
