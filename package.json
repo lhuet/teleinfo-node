@@ -1,0 +1,24 @@
+{
+  "name": "teleinfo-node",
+  "version": "0.1.0",
+  "description": "Decode teleinfo data (from french electricity meter) from serial port",
+  "main": "teleinfo.js",
+  "keywords": [
+    "electricity",
+    "teleinfo",
+    "serial"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lhuet/teleinfo-node.git"
+  }
+  "dependencies": {
+    "serialport": "1.2.5"
+  },
+  "author": {
+    "name": "Laurent HUET",
+    "email": "laurent.huet@gmail.com",
+    "url": "http://lhuet.github.io/blog/"
+  },
+  "license": "MIT"
+}
