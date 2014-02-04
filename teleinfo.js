@@ -19,29 +19,33 @@ function teleinfo(port) {
 		trameEvents.emit('trame', data);
 	});
 
+        serialPort.on('error', function(err) {
+                trameEvents.emit('error', err);
+        });
 
 	trameEvents.on('trame', function(data) {
-		// Decode trame '9 lignes en tarif bleu'
+		// Decode trame '9 lignes en tarif bleu base'
 		var trame = {};
 		var arrayOfData = data.split('\r\n');
 		for (var i=0; i < arrayOfData.length; i++) {
-		  decodeLigne(arrayOfData[i], trame);
+		  decodeLigne(arrayOfData[i], trame, trameEvents);
 		}
 		// trame incomplete s'il manque la première ligne ADCO
-		if (!(trame['ADCO']===undefined)) {
+		if (!(trame.ADCO===undefined)) {
 		  trameEvents.emit('tramedecodee', trame);
 		}
 		else {
-		  //console.log("Trame incomplete : \n" + util.inspect(trame));
+                  var err = new Error('Trame incomplete');
+                  trameEvents.emit('error', err);
 		}
 		
 	});
 
-  return trameEvents;
+	return trameEvents;
 }
 
 
-function decodeLigne(ligneBrute, trame) {
+function decodeLigne(ligneBrute, trame, trameEvents) {
     // Ligne du type "PAPP 00290 ," (Etiquette / Donnée / Checksum)
     var elementsLigne = ligneBrute.split(' ');
     if (elementsLigne.length === 3) {
@@ -75,12 +79,12 @@ function decodeLigne(ligneBrute, trame) {
         }
         return true;
       } else {
-        // Checksum ko
-        return false;
+        var err = new Error('Erreur de checksum : \n' + ligneBrute + '\n Checksum calculé/reçu : ' + sum + ' / ' + ligneBrute.charCodeAt(j+1)); 
+        trameEvents.emit('error', err);
       }
     };
 };
 
 
-exports.teleinfo = teleinfo;
+module.exports = teleinfo;
 
