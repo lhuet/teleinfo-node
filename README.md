@@ -23,7 +23,7 @@ Récupérer l'instance d'EventEmitter du module en appelant la fonction teleinfo
 
 ```javascript
 // Exemple d'utilisation sur Raspberry Pi
-var trameEvents = teleinfo.teleinfo('/dev/ttyAMA0');
+var trameEvents = teleinfo('/dev/ttyAMA0');
 ```
 
 Les trames téléinfo sont envoyées sous forme d'évènements :
